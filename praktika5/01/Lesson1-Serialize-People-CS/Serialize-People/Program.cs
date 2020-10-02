@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
@@ -7,15 +7,16 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Serialize_People
 {
-    // Простая программа, котора будет принимать имя, год и месяц
-    // создавать person на основе этих данных, 
-    // и будет выводить на экран возраст этого person.
+    // A simple program that accepts a name, year, month date,
+    // creates a Person object from that information, 
+    // and then displays that person's age on the console.
     class Program
     {
         static void Main(string[] args)
         {
             if (args.Length == 0)
             {
+                // If they provide no arguments, display the last person
                 Person p = Deserialize();
                 Console.WriteLine(p.ToString());
             }
@@ -52,36 +53,34 @@ namespace Serialize_People
         private static void Serialize(Person sp)
         {
             // TODO: Serialize sp object
-            // Создаем файл для сохранения данных
+            // Create file to save the data to
             FileStream fs = new FileStream("Person.Dat", FileMode.Create);
 
-            // Создаем BinaryFormatter объект для сериализации
+            // Create a BinaryFormatter object to perform the serialization
             BinaryFormatter bf = new BinaryFormatter();
 
-            // Используем BinaryFormatter объект для сериализации данных в файл
+            // Use the BinaryFormatter object to serialize the data to the file
             bf.Serialize(fs, sp);
 
-            // Закрываем файл
+            // Close the file
             fs.Close();
 
         }
 
-        // C#
         private static Person Deserialize()
         {
             Person dsp = new Person();
 
-            // Открываем файл для чтения данных 
+            // ��������� ���� ��� ������ ������	
             FileStream fs = new FileStream("Person.Dat", FileMode.Open);
-            // Создаем объект BinaryFormatter для выполнения десериализации
+            // ������� ������ BinaryFormatter ��� ���������� ��������������
             BinaryFormatter bf = new BinaryFormatter();
-            // Используем объект BinaryFormatter для десериализации данных из файла
+            // ���������� ������ BinaryFormatter ��� �������������� ������ �� �����
             dsp = (Person)bf.Deserialize(fs);
-            //Закрываем файл 
-            fs.Close();
+            // ��������� ���� fs.Close();
 
             return dsp;
-        }
 
+        }
     }
 }
